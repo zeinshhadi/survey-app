@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import "./styles/global.css";
 import Register from "./components/register";
 import Login from "./components/login";
 
