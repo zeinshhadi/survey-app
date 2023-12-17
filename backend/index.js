@@ -12,8 +12,8 @@ app.get("/hello", (req, res) => {
 });
 
 // auth route
-// const authRoutes = require("./routes/auth.routes");
-// app.use("/auth", authRoutes);
+const authRoutes = require("./routes/auth.routes");
+app.use("/auth", authRoutes);
 // to do routes
 // const todoRoutes = require("./routes/todo.routes");
 
