@@ -4,27 +4,34 @@ const bcrypt = require("bcrypt");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).send({ message: "Invalid username/password" });
+    }
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      return res.status(400).send({ message: "Invalid username/password" });
+    }
 
-  const user = await User.findOne({ username });
-  if (!user) res.status(400).send({ message: "Invalid username/password" });
+    const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
 
-  const isValidPassword = await bcrypt.compare(password, user.password);
-  if (!isValidPassword) res.status(400).send({ message: "Invalid username/password" });
+    const token = jwt.sign(
+      {
+        ...userDetails,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "2 days" }
+    );
 
-  const { password: hashedPassword, _id, ...userDetails } = user.toJSON();
-
-  const token = jwt.sign(
-    {
-      ...userDetails,
-    },
-    process.env.JWT_SECRET,
-    { expiresIn: "2 days" }
-  );
-
-  res.status(200).send({
-    user: userDetails,
-    token,
-  });
+    res.status(200).send({
+      user: userDetails,
+      token,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
 };
 
 const register = async (req, res) => {
