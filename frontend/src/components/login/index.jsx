@@ -1,13 +1,42 @@
-import React from "react";
-
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    try {
+      console.log("first");
+      const response = await axios.post("http://localhost:8000/auth/login", formData);
+      const roleId = response.data.user.roleId;
+      if (roleId === 2) {
+        navigate("/userpage");
+      } else {
+        navigate("/adminpage");
+      }
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
+  };
+
   return (
     <div>
-      <form className="flex column center gap10">
+      <form className="flex column center gap10" onSubmit={handleLogin}>
         <label>Enter your username</label>
-        <input name="username" placeholder="username" />
+        <input name="username" placeholder="username" onChange={handleChange} />
         <label>Enter your password</label>
-        <input name="password" placeholder="password" />
+        <input name="password" type="password" placeholder="password" onChange={handleChange} />
         <button type="submit">Login</button>
       </form>
     </div>
