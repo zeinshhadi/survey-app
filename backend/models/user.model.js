@@ -1,31 +1,39 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-    minlength: 3,
-    maxlength: 20,
-    trim: true,
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: 3,
+      maxlength: 20,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6,
+    },
+    firstName: {
+      type: String,
+      required: true,
+      minlength: 3,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      minlength: 3,
+    },
+    roleId: {
+      type: Number,
+      required: true,
+      maxlength: 1,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-  },
-  firstName: {
-    type: String,
-    required: true,
-    minlength: 3,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    minlength: 3,
-  },
-});
+  { timestamps: true }
+);
 
 userSchema.pre(
   "save",
