@@ -20,6 +20,7 @@ const Login = () => {
       console.log("first");
       const response = await axios.post("http://localhost:8000/auth/login", formData);
       const roleId = response.data.user.roleId;
+      console.log(response.data.token);
       if (roleId === 2) {
         navigate("/userpage");
       } else {
