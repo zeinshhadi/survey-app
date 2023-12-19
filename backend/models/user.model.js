@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       minlength: 3,
-      maxlength: 20,
+      maxLength: 20,
       trim: true,
     },
     password: {
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
     roleId: {
       type: Number,
       required: true,
-      maxlength: 1,
+      maxLength: 1,
     },
   },
   { timestamps: true }

@@ -15,6 +15,10 @@ const surveyRoutes = require("./routes/survey.routes");
 const { authMiddleware } = require("./middlewares/auth.middleware");
 app.use("/survey", authMiddleware, surveyRoutes);
 
+const questionRoutes = require("./routes/question.routes");
+const { adminMiddleware } = require("./middlewares/admin.middleware");
+app.use("/question", authMiddleware, adminMiddleware, questionRoutes);
+
 app.listen(8000, () => {
   console.log(`listening on port : ${8000}`);
   connectToMongoDB();

@@ -1,32 +1,21 @@
 const mongoose = require("mongoose");
-const answerSchema = new mongoose.Schema({
-  text: {
-    type: String,
-    maxlength: 255,
-    required: true,
-  },
-  correct: {
-    type: Boolean,
-    required: true,
-  },
-});
-const surveySchema = new mongoose.Schema({
-  question: {
-    type: String,
-    maxlength: 1000,
-    required: true,
-  },
-  answers: { type: [answerSchema], required: true },
 
-  solved: {
-    type: Boolean,
+const surveySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+
+    created_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-});
+  { timestamps: true }
+);
+
 const Survey = mongoose.model("Survey", surveySchema);
 
 module.exports = Survey;
