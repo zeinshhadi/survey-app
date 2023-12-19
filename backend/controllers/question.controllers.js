@@ -6,7 +6,7 @@ const addQuestion = async (req, res) => {
   try {
     const question = await Question.create({
       questionName,
-      //   createdBy: req.survey._id,
+      surveyId: req.survey._id,
     });
     res.status(201).send({ question });
   } catch (error) {

@@ -17,7 +17,11 @@ app.use("/survey", authMiddleware, surveyRoutes);
 
 const questionRoutes = require("./routes/question.routes");
 const { adminMiddleware } = require("./middlewares/admin.middleware");
+
 app.use("/question", authMiddleware, adminMiddleware, questionRoutes);
+const answerRoutes = require("./routes/answer.routes");
+
+app.use("/answer", authMiddleware, answerRoutes);
 
 app.listen(8000, () => {
   console.log(`listening on port : ${8000}`);

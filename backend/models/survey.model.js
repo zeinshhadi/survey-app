@@ -7,7 +7,7 @@ const surveySchema = new mongoose.Schema(
       required: true,
     },
 
-    created_by: {
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,

@@ -6,11 +6,22 @@ const questionSurvey = mongoose.Schema(
       type: String,
       required: true,
     },
-    // surveyId: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Survey",
-    //   required: true,
-    // },
+
+    surveyId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Survey",
+      required: true,
+    },
+    questionType: {
+      type: String,
+      required: true,
+    },
+
+    options: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     timestamps: true,
