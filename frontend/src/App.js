@@ -5,6 +5,7 @@ import Register from "./components/register";
 import Login from "./components/login";
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
+import AddQuestion from "./components/addQuestion";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/adminpage" element={<AdminPage />} />
+          <Route path="/add-questions/:surveyId" element={<AddQuestion />} />
         </Routes>
       </BrowserRouter>
     </div>

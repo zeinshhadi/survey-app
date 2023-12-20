@@ -14,4 +14,13 @@ const addSurvey = async (req, res) => {
   }
 };
 
-module.exports = { addSurvey };
+const getAllSurveys = async (req, res) => {
+  try {
+    const surveys = await Survey.all();
+    res.status(200).send({ surveys });
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+};
+
+module.exports = { getAllSurveys, addSurvey };
