@@ -1,12 +1,12 @@
 const Question = require("../models/question.model");
 
 const addQuestion = async (req, res) => {
-  const { questionName, questionType, options } = req.body;
-  console.log(req.params.survey._id);
+  const { questionName, surveyId, questionType, options } = req.body;
+
   try {
-    surveyId = req.params.survey._id;
     const question = await Question.create({
       questionName,
+      surveyId,
       questionType,
       options,
     });
