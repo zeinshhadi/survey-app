@@ -14,7 +14,7 @@ app.use("/auth", authRoutes);
 const surveyRoutes = require("./routes/survey.routes");
 const { authMiddleware } = require("./middlewares/auth.middleware");
 const { adminMiddleware } = require("./middlewares/admin.middleware");
-app.use("/survey", authMiddleware, adminMiddleware, surveyRoutes);
+app.use("/survey", authMiddleware, surveyRoutes);
 
 const questionRoutes = require("./routes/question.routes");
 
