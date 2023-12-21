@@ -6,17 +6,14 @@ const answerSchema = new mongoose.Schema({
     ref: "Question",
     required: true,
   },
-  userAnswer: {
-    type: String,
+  userAnswers: {
+    type: [String],
     required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-  },
-  solved: {
-    type: Boolean,
   },
 });
 

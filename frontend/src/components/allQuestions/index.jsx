@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./index.css";
+
 const AllQuestions = () => {
+  const authToken = localStorage.getItem("authorization");
+  const authorization = "Bearer " + authToken;
   const surveyId = useParams().surveyId;
   const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +20,6 @@ const AllQuestions = () => {
           headers: { Authorization: authorization },
         });
 
-        console.log(response.data.questions);
         setQuestions(response.data.questions);
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -26,18 +29,66 @@ const AllQuestions = () => {
     fetchData();
   }, []);
 
+  const handleCheckboxChange = (questionId, option, isChecked) => {
+    setAnswers((prevAnswers) => {
+      const selectedOptions = prevAnswers[questionId] || [];
+
+      if (isChecked) {
+        selectedOptions.push(option);
+      } else {
+        const index = selectedOptions.indexOf(option);
+        if (index !== -1) {
+          selectedOptions.splice(index, 1);
+        }
+      }
+
+      return { ...prevAnswers, [questionId]: selectedOptions };
+    });
+  };
+
+  const handleInputChange = (questionId, value) => {
+    setAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionId]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    console.log("from here", answers);
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/answer/`,
+        { questionId: Object.keys(answers), userAnswers: Object.values(answers) },
+        {
+          headers: {
+            Authorization: authorization,
+          },
+        }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.error("Error submitting answers:", error);
+    }
+  };
+
   return (
     <div>
       {questions.map((question) => {
-        const { questionType, options } = question;
+        const { _id: questionId, questionType, questionName, options } = question;
 
         if (questionType === "checkbox") {
           return (
-            <div key={question._id} className="flex column start">
-              {question.questionName}
+            <div key={questionId} className="flex column center">
+              {questionName}
               {options.map((option) => (
                 <label key={option}>
-                  <input type="checkbox" value={option} />
+                  <input
+                    type="checkbox"
+                    value={option}
+                    onChange={(e) => handleCheckboxChange(questionId, option, e.target.checked)}
+                  />
                   {option}
                 </label>
               ))}
@@ -47,20 +98,25 @@ const AllQuestions = () => {
 
         if (questionType === "text") {
           return (
-            <div key={question._id} className="flex column center">
-              {question.questionName}
-              <textarea rows="4" cols="50" />
+            <div key={questionId} className="flex column center">
+              {questionName}
+              <textarea rows="4" cols="50" onChange={(e) => handleInputChange(questionId, e.target.value)} />
             </div>
           );
         }
 
         if (questionType === "radio") {
           return (
-            <div key={question._id} className="flex column start">
-              {question.questionName}
+            <div key={questionId} className="flex column center">
+              {questionName}
               {options.map((option) => (
                 <label key={option}>
-                  <input type="radio" name={`radio_${question._id}`} value={option} />
+                  <input
+                    type="radio"
+                    name={`radio_${questionId}`}
+                    value={option}
+                    onChange={(e) => handleInputChange(questionId, e.target.value)}
+                  />
                   {option}
                 </label>
               ))}
@@ -68,6 +124,9 @@ const AllQuestions = () => {
           );
         }
       })}
+      <button type="button" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 };

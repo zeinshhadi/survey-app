@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "./index.css";
+
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -42,6 +44,11 @@ const Login = () => {
         <input name="password" type="password" placeholder="password" onChange={handleChange} />
         <button type="submit">Login</button>
       </form>
+
+      {/* Link to registration form */}
+      <div>
+        Don't have an account? <Link to="/register">Register</Link>
+      </div>
     </div>
   );
 };
