@@ -10,7 +10,10 @@
 .column {
   flex-direction: column;
 }
-
+.space-around {
+  justify-content: space-around;
+  align-items: center;
+}
 .gap10 {
   gap: 10px;
 }

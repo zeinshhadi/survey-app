@@ -2,10 +2,12 @@ const Answer = require("../models/answer.model");
 
 const addAnswer = async (req, res) => {
   try {
-    const { questionId, userAnswer } = req.body;
+    const { questionId, userAnswer, solved } = req.body;
     const newAnswer = await Answer.create({
       questionId,
       userAnswer,
+      userId: req.user._id,
+      solved,
     });
 
     res.status(201).json(newAnswer);

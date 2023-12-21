@@ -1,0 +1,44 @@
+.surveyContainer {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: #0099ff;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+}
+
+.surveyContainer:hover {
+  background-color: #0004fd;
+}
+
+.surveyContainer button {
+  padding: 8px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+  height: 30px;
+  margin: 20px;
+  font-weight: bold;
+  align-self: center;
+}
+
+.surveyContainer button:hover {
+  background-color: #45a049;
+}
+.info {
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px;
+  background-color: #fff;
+  margin: 2px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.survey-wrapper {
+  flex-wrap: wrap;
+}

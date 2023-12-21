@@ -15,5 +15,14 @@ const addQuestion = async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 };
+const getAllQuestions = async (req, res) => {
+  const surveyId = req.params.id;
+  try {
+    const questions = await Question.find({ surveyId });
+    res.status(200).send({ questions });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
 
-module.exports = { addQuestion };
+module.exports = { addQuestion, getAllQuestions };
