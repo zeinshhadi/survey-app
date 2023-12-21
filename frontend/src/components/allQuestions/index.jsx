@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import "./index.css";
 const AllQuestions = () => {
   const surveyId = useParams().surveyId;
   const [questions, setQuestions] = useState([]);
@@ -33,7 +33,7 @@ const AllQuestions = () => {
 
         if (questionType === "checkbox") {
           return (
-            <div key={question._id}>
+            <div key={question._id} className="flex column start">
               {question.questionName}
               {options.map((option) => (
                 <label key={option}>
@@ -47,7 +47,7 @@ const AllQuestions = () => {
 
         if (questionType === "text") {
           return (
-            <div key={question._id}>
+            <div key={question._id} className="flex column center">
               {question.questionName}
               <textarea rows="4" cols="50" />
             </div>
@@ -56,7 +56,7 @@ const AllQuestions = () => {
 
         if (questionType === "radio") {
           return (
-            <div key={question._id}>
+            <div key={question._id} className="flex column start">
               {question.questionName}
               {options.map((option) => (
                 <label key={option}>

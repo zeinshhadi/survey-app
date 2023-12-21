@@ -1,0 +1,42 @@
+.all-questions-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.question-container {
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.question-container h4 {
+  margin-bottom: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.center {
+  align-items: center;
+}
+
+.start {
+  align-items: flex-start;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+label {
+  margin-right: 10px;
+}
